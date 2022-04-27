@@ -1,8 +1,10 @@
 package com.fzong.databasetest;
 
 import com.fzong.DataTrexApplication;
+import com.fzong.project.domain.SssBrxx;
 import com.fzong.project.domain.SysConfig;
 
+import com.fzong.project.mapper.SssBrxxMapper;
 import com.fzong.project.mapper.SysConfigMapper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,12 +20,11 @@ import java.util.List;
 public class MybatisPTest {
 
     @Autowired
-    private SysConfigMapper configMapper;
+    private SssBrxxMapper configMapper;
 
     @Test
     public void testSelect(){
-        List<SysConfig> sysConfigs = configMapper.selectList(null);
-        Assert.assertEquals(4,sysConfigs.size());
+        List<SssBrxx> sysConfigs = configMapper.getTop(5);
         sysConfigs.forEach(System.out::println);
     }
 }

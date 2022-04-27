@@ -22,7 +22,7 @@ logging:
 # Spring配置
 spring:
   profiles: 
-    active: hikari
+    active: hikari2
   # 服务模块
   devtools:
     restart:

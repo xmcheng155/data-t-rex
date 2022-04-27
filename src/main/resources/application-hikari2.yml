@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     master:
-      jdbc-url: jdbc:sqlserver://192.168.0.224:1433;database=zncssd
+      jdbc-url: jdbc:sqlserver://172.16.0.155:1433;database=zncssd
       username: sa
       password: Test@123
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver

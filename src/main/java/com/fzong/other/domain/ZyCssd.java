@@ -1,22 +1,17 @@
-package com.fzong.project.domain;
-
+package com.fzong.other.domain;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
-@TableName("SSS_Brxx")
-public class SssBrxx {
-
-    @TableId
-    private String id;
-
+@TableName("zy_cssd")
+public class ZyCssd {
     private String pid;
 
+    @TableId
     private String sickId;
 
     private String sick;
@@ -47,9 +42,6 @@ public class SssBrxx {
 
     private Timestamp registTime;
 
-    private int sickClass;
-
-    private Timestamp operTime;
-
     private Timestamp upTime;
+
 }

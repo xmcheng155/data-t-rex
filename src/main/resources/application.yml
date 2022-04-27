@@ -29,3 +29,6 @@ spring:
       # 热部署开关
       enabled: true
 
+job:
+  #60s 同步任务执行间隔 不超过3分钟 默认60s
+  fixedRate: 60000

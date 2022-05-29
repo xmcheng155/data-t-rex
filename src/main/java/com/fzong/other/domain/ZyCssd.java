@@ -7,7 +7,7 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 @Data
-@TableName("zy_cssd")
+@TableName(value = "zy_cssd",schema = "sa")
 public class ZyCssd {
     private String pid;
 
@@ -42,6 +42,6 @@ public class ZyCssd {
 
     private Timestamp registTime;
 
-    private Timestamp upTime;
+    private Timestamp cyrq;
 
 }

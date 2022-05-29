@@ -1,6 +1,7 @@
 package com.fzong.project.domain;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.sql.Timestamp;
 @TableName("SSS_Brxx")
 public class SssBrxx {
 
-    @TableId
+    @TableId(value = "ID",type = IdType.INPUT)
     private String id;
 
     private String pid;

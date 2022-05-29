@@ -21,8 +21,14 @@ logging:
 
 # Spring配置
 spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    encoding: utf-8
+    suffix: .html
+    mode: HTML
   profiles: 
-    active: hikari2
+    active: hikari
   # 服务模块
   devtools:
     restart:

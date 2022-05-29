@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>数据同步</title>
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/js/datepicker-full.min.js"></script>
+    <script type="text/javascript" src="/js/zh-CN.js"></script>
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <link rel="stylesheet" href="/css/datepicker-bulma.min.css">
+    <script>
+        $(document).ready(function () {
+            const elem = document.getElementById('foo');
+            const datepicker = new DateRangePicker(elem, {
+                autohide : true,
+                language :"zh-CN"
+            });
+
+            $(".modal").on("click",'.delete',function () {
+                $(".modal").removeClass("is-active");
+            });
+
+            $("#synBtn1").on('click',function () {
+                const dates = datepicker.getDates("yyyy-mm-dd");
+                if(dates[0]===undefined){
+                    $('#end').addClass("is-danger").removeClass("is-success");
+                    $("#start").addClass("is-danger").removeClass("is-success");
+                    $("#timeHelp").show();
+                    return;
+                }else{
+                    $('#end').removeClass("is-danger").addClass("is-success");
+                    $("#start").removeClass("is-danger").addClass("is-success");
+                    $("#timeHelp").hide();
+                }
+                $(".modal").addClass("is-active").find(".message-body").html("数据同步中，请等待...");
+                $.post("synByDate",{start:dates[0],end:dates[1]},
+                    function (data) {
+                        $(".message-body").html("同步成功"+ data);
+                        console.log(data);
+                    }
+                );
+
+            });
+            $("#synBtn2").on('click',function () {
+                const zyh = $("#zyh").val();
+                if(zyh === ''){
+                    $("#zyh").addClass("is-danger").removeClass("is-success");
+                    $("#zyhHelp").show();
+                    return;
+                }else{
+                    $("#zyh").removeClass("is-danger").addClass("is-success");
+                    $("#zyhHelp").hide();
+                }
+                $(".modal").addClass("is-active").find(".message-body").html("数据同步中，请等待...");
+                $.post("synByzyh",{zyh:zyh},
+                    function (data) {
+                        $(".message-body").html("同步成功"+ data);
+                        console.log(data)
+                    }
+                );
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="container is-fluid">
+        <section class="hero is-small is-info">
+            <div class="hero-body">
+                <p class="title">
+                    数据同步
+                </p>
+            </div>
+        </section>
+        <section class="section is-medium">
+            <div class="tile is-ancestor">
+                <div class="tile is-6 is-vertical is-parent">
+                    <div class="tile is-child box is-info">
+                        <p class="title">历史数据</p>
+                        <div class="field" >
+                            <label class="label">入院时间</label>
+                            <div id="foo" class="control">
+                                <input class="input" id="start" readonly type="text" name="start">
+                                <span>至</span>
+                                <input class="input" id="end" readonly type="text" name="end">
+                            </div>
+                            <p id="timeHelp" class="help is-danger" style="display: none">选择时间范围</p>
+                        </div>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-info" id="synBtn1">同步</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile is-parent">
+                    <div class="tile is-child box">
+                        <p class="title">指定数据</p>
+                        <div class="field">
+                            <label class="label">住院号/病人id</label>
+                            <div class="control">
+                                <input id="zyh" class="input" type="text" placeholder="请输入...">
+                            </div>
+                            <p id="zyhHelp" class="help is-danger" style="display: none">请填写...</p>
+                        </div>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-info" id="synBtn2">同步</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <article class="message is-info">
+                    <div class="message-header is-medium">
+                        <p>提示</p>
+                        <button class="delete is-medium" aria-label="delete"></button>
+                    </div>
+                    <div class="message-body">
+
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
